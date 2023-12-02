@@ -1,15 +1,39 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Daras et~al.(2023)Daras, Shah, Dagan, Gollakota, Dimakis, and
+  Klivans]{2305.19256}
+Daras, G., Shah, K., Dagan, Y., Gollakota, A., Dimakis, A.~G., and Klivans, A.
+\newblock Ambient diffusion: Learning clean distributions from corrupted data,
+  2023.
+
+\bibitem[He et~al.(2022)He, Sun, Yu, Xue, Zhang, Torr, Bai, and Qi]{2210.07574}
+He, R., Sun, S., Yu, X., Xue, C., Zhang, W., Torr, P., Bai, S., and Qi, X.
+\newblock Is synthetic data from generative models ready for image
+  recognition?, 2022.
+
 \bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
   Gray, Radford, Wu, and Amodei]{2001.08361}
 Kaplan, J., McCandlish, S., Henighan, T., Brown, T.~B., Chess, B., Child, R.,
   Gray, S., Radford, A., Wu, J., and Amodei, D.
 \newblock Scaling laws for neural language models, 2020.
+
+\bibitem[Meng et~al.(2021)Meng, He, Song, Song, Wu, Zhu, and Ermon]{2108.01073}
+Meng, C., He, Y., Song, Y., Song, J., Wu, J., Zhu, J.-Y., and Ermon, S.
+\newblock Sdedit: Guided image synthesis and editing with stochastic
+  differential equations, 2021.
+
+\bibitem[Pobitzer(2023)]{Pobitzer_2023}
+Pobitzer, M., 2023.
+
+\bibitem[Trabucco et~al.(2023)Trabucco, Doherty, Gurinas, and
+  Salakhutdinov]{2302.07944}
+Trabucco, B., Doherty, K., Gurinas, M., and Salakhutdinov, R.
+\newblock Effective data augmentation with diffusion models, 2023.
 
 \bibitem[Zhong et~al.(2017)Zhong, Zheng, Kang, Li, and Yang]{1708.04896}
 Zhong, Z., Zheng, L., Kang, G., Li, S., and Yang, Y.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.27)  28 NOV 2023 14:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.27)  2 DEC 2023 12:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -395,38 +395,73 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 79.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 79.
-<Mask.png, id=7, 727.0362pt x 263.7855pt>
-File: Mask.png Graphic file (type png)
-<use Mask.png>
-Package pdftex.def Info: Mask.png  used on input line 104.
-(pdftex.def)             Requested size: 234.8775pt x 85.21808pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<Mask.png, id=31, 727.0362pt x 263.7855pt>
+File: Mask.png Graphic file (type png)
+<use Mask.png>
+Package pdftex.def Info: Mask.png  used on input line 162.
+(pdftex.def)             Requested size: 234.8775pt x 85.21808pt.
+File: Mask.png Graphic file (type png)
+<use Mask.png>
+Package pdftex.def Info: Mask.png  used on input line 182.
+(pdftex.def)             Requested size: 234.8775pt x 85.21808pt.
+
+Overfull \hbox (4.30354pt too wide) in paragraph at lines 199--207
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.137 
-       <./Mask.png>] (./writeup.bbl) [2
+l.213 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.213 
+       <./Mask.png>]
+File: Mask.png Graphic file (type png)
+<use Mask.png>
+Package pdftex.def Info: Mask.png  used on input line 222.
+(pdftex.def)             Requested size: 234.8775pt x 85.21808pt.
+ (./writeup.bbl [3pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.29 
+     pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.29 
+     ]) [4
 
 ] (./writeup.aux)
 Package rerunfilecheck Info: File `writeup.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 11861 strings out of 478287
- 188948 string characters out of 5849288
- 531064 words of memory out of 5000000
- 29765 multiletter control sequences out of 15000+600000
- 485060 words of font info for 112 fonts, out of 8000000 for 9000
+ 11951 strings out of 478287
+ 189954 string characters out of 5849288
+ 531564 words of memory out of 5000000
+ 29786 multiletter control sequences out of 15000+600000
+ 489132 words of font info for 150 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,11n,69p,1041b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on writeup.pdf (2 pages, 1328576 bytes).
+ 60i,11n,69p,1041b,458s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on writeup.pdf (4 pages, 1376905 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 32774 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 119 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
+ 26 named destinations out of 1000 (max. 500000)
+ 36870 words of extra memory for PDF output out of 42996 (max. 10000000)
 

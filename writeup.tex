@@ -75,7 +75,7 @@
 With the growth in the complexity of neural networks and the amount of available compute, the need for larger datasets
 has become a bottleneck in the advancements of computer visions. In this paper we explore an new approach to synthetic
 data generation by treating data augmentation as an inverse problem. We ultize posterior sampling with latent diffusion
-models to in order generate synthetic data through masking. Finally we discuss potential improvements and future work
+models in order to generate synthetic data through masking. Finally we discuss potential improvements and future work
 that can be done. Code is available at \url{https://github.com/Hprairie/Synthetic-ImgGen-PSLD}.
 \end{abstract}
 
@@ -94,33 +94,23 @@ have been shown to be effictive in creating realistic synthetic data, however th
 order to fine tune models.
 
 In the last year the surge in the power of large language models such as GPT-4 has also shown their potential to create synthetic
-data. The ability to generate realistic text responses to prompts can be viewed as an inverse problem, where the model is attempting
+data. The ability for LLMS to generate realistic text responses to prompts can be viewed as an inverse problem, where the model is attempting
 to find the most likely text given a prompt. A similar approach can be applied to images, where diffusion models can be used to solve
 inverse problems and in turn generate synthetic data.
 
-\begin{figure}[ht]
-    \vskip 0.2in
-    \begin{center}
-        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
-        \caption{Posterior sampling with latent diffusion (PSLD) is a method of solving linear inverse problems in images by utilizing the power of latent diffusion models such as Stable Diffusion.}
-        \label{psld}
-    \end{center}
-    \vskip -0.3in
-\end{figure}
-
 In this paper we explore the use of posterior sampling with latent diffusion models (PSLD) to create synthetic data. PSLD
-is a method of solving linear inverse problems in images by utilizing the power of latent diffusion models such as Stable Diffusion. By
+is a algorithm which allows the use of latent diffusion models to solve linear inverse problems in images. By
 generating a mask and then using PSLD to reconstruct the image, variations of the original image can be created,
 due mainly the inherent lossy relations of masking pixels. We found these synthetic images to be effective in improving
 the performance of object detections models.
 
-The rest of the paper is organized as follows. First we cover the benefits and downsides of niave and advanced data
+The rest of the paper is organized as follows. First we cover the related work along with the benefits and downsides of niave and advanced data
 augmentation techniques. Then we cover our approach of treating augmentation as an inverse problem and utilize diffusion
 models for synthetic data generation. Finally we cover the results of our initial expirements and potential improvements along
 with future work that can be done.
  
 
-\section{Data Augmentation Techniques}
+\section{Related Work}
 
 Data Augementation and synthetic data generation aim to artifically increase the size of training set in order to improve robustness
 of computer vision models and prevent overfitting to a training set. Similar to dropout in neural networks, data augmentation can be
@@ -132,24 +122,135 @@ Most niave data augmentation techniques apply simple tranformations to the input
 cropping, rotating, translation, color jittering, and adding noise. Other more complex techniques such as random erasing aim to occlude
 parts of the image allowing the model to learn to focus on other features. These techniques are often effective in improving the performance
 of computer vision models to an extent, however they are often ignorant to certain domains such as medical imaging, where simple
-transoformations are not applicable to potential real world domains. For example in brain ct scans, linear transformations of the image
-would create unrealistic domains that are not representative of test/validation data.
+transoformations are not applicable to potential real world domains.
+
+For example in brain ct scans, linear transformations of the image would create unrealistic domains that are not representative of test/validation data. 
+The use of linear transformations in order to improve the robustness of a model in these domains often doesn't work as infrence time samples will be centered 
+and cropped such as in ct scans. Thus the need for variation in the training set under specific domain constraints are necissary. 
 
 \subsection{Advanced Data Augmentation}
 
 In more recents years the use of GANs have been show to be effective in creating realistic synthitic data. 
 
+\subsection{Diffusion Models}
+
+As the power of latent diffusion models grows, the desire to apply their power to synthetic data generation has become increasingly more popular. Some work
+attempts to graft target images partway through the diffusion process creating more variations of the original images at the cost of faithfulness to the target
+class \cite{2108.01073}. This was then tested in zero shot and few shot settings, where it was shown to be effective in improving the performance of image 
+classification \cite{2210.07574}. In both of these situations the diffusion model is guided by the text prompt, creating another issue as the model is unable to
+generalize to new images where vocabulary is used outside of its training set. Other work has attempted to solve this by insert embeddings into the textual encoder
+and then using textual inversion to fine tune the model, allowing it to generalize new vocabulary \cite{2302.07944}. However the significant issue with these approaches
+is their higher likelihood to generate unfailful images and their need to fintune the diffusion model, which often requires a large amount of compute.
+
+There is some work on the use of inpainting in semantic segmentation tasks, where morphological erosion was applied to the mask which allowed the model to better
+generalize the inpainting process and inpaint more faithfull images \cite{Pobitzer_2023}. However there are still some issues with this approach as well,
+as the model is still uses prompt guidance and is unable to generalize to new domains not in its training vocabulary.
+
 \section{Our Approach}
 
-\section{Results}
+A desirable way to create synthetic data would create more variation than niave data augmentation techniques, but without the need for
+large data and compute to train GANs. Thus we propose a method of treating data augmentation as an inverse problem, in which synthetic samples
+can be generated by utilizing PSLD and allowing the latent diffusion models to fill in missing pixels. For example, consider the matrix $A$ which
+transforms the image $x$ to 'corrupted' image $\hat{x}$ and can then be passed to the PSLD algorithm which will attempt to reconstruct
+the original image $x$. The resulting image is a synthetic sample $\tilde{x}$ which can be then be used as a training sample. In this paper we
+only attempt to reconstruct an image through masking, however other transformations such as gaussion blurring, motion blurring, and lossy compression
+could potentially be used as well.
+
+\begin{figure}[ht]
+    \vskip -0.1in
+    \begin{center}
+        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
+        \caption{Example of sample passed into stable diffusion with corresponding image and mask.}
+        \label{psld_mask}
+    \end{center}
+    \vskip -0.3in
+\end{figure}
+
+While several masking techniques could potentially be useful, i.e. random, gaussian, in bounding box, out of bounding box, etc. we only tested on
+gaussian out of the bounding box masking, which is displayed in Figure \ref{psld_mask}. A mask can be generated by first completely masking the inside 
+of a given samples bounding box and then creating 
+a matrix $D$ which is the same shape of our image but contains the distance from any given pixel to the nearest masked pixel. We can then sample a gaussian
+distribution $N \sim (0, \sigma)$ at each pixel, and then mask any pixel where $d \in D$ is greater than it's given sample from $N$. This results in a mask where pixels
+closer to the bounding box are more likely be masked than pixels further away from the bounding box. 
+
+The image with it's corresponding mask can then be \textit{solved} as an inverse problem using the PSLD algorithm, creating new synthetic samples due to the lossy nature
+of estimating pixel values. Examples of resulting images can be seen in Figure \ref{psld_results}.
+
+\begin{figure}[ht]
+    \vskip -0.1in
+    \begin{center}
+        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
+        \caption{Example of sample passed into stable diffusion with corresponding image and mask.}
+        \label{psld_results}
+    \end{center}
+    \vskip -0.3in
+\end{figure}
+
+As described this approach allows the creation of synthetic samples samples that are not prompt guided or limited to a given vocabulary, don't require model
+finetuning, and are not limited to a given domain. However, the downside to this approach is that realism in the generated images, as a preference to class faithfulness
+comes at the cost of realism.
+
+\section{Experiment}
+
+\begin{table*}[t]
+\centering
+\caption{Your caption}
+\label{results}
+\begin{tabular}{lcccccr}
+\toprule
+Augmentation & Train Box & Train Objectiveness & Validation mAP@0.5 & Validation F1  & Test mAP@0.5 & Test F1 \\
+\midrule
+Baseline & 0.02726 & 0.004067 & 0.6969 & 0.73 & 0.699 & 0.73\\
+PSLD & \textbf{0.0254} & \textbf{0.003194} & \textbf{.7349} &  \textbf{0.77} & \textbf{0.782} & \textbf{0.82} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+We ran several experiments on the effectiveness of synthetic data generation using PSLD. We used a bone fragment dataset which consists of 1000 images 
+(750 train, 50 val, 200 test) of bone fractures from all over the body. The reasoning for using this dataset is that it is more likely to be outside the training
+dataset. We used stable diffusion v1.4, which is a latent diffusion model trained on TEMP NEED TO FIX. We created roughly 1000 synthetic samples using PSLD, and then
+compared it with other naive data augmentation techniques where we created a similar number of samples.
+
+The results of the experiment can be seen in Table \ref{results} where we compare the performance of a YOLOv7 model. We found that the use of synthetic data
+was incredibly effective in improving the performance of our baseline YOLOv7 model. Compared with other naive data augmentation techniques, we found that the use
+of PSLD was also more effective in improving the performance of our model. The training curves of the model can be seen in Figure \ref{training_curves}, which is
+adjusted for gradient steps instead of epochs.
+
+\begin{figure}[ht]
+    \vskip -0.1in
+    \begin{center}
+        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
+        \caption{Example of sample passed into stable diffusion with corresponding image and mask.}
+        \label{training_curves}
+    \end{center}
+    \vskip -0.3in
+\end{figure}
+
 
 \section{Discussion and Future Work}
+
+Treating data augmentation as an inverse problem allows for better variation of synthetic samples compared to naive data augmentation techniques, and can be done
+without the need to retrain on a specific dataset. However as seen, the realism of the generated images are not as comparable to GANs or other diffusion based techniques,
+but are inherently more faithful to the original class. Currently the PSLD algorithm is unable to effectively use the prompt as a guide to reconstruction, however if the 
+affect of the prompt is consider within the gradient updates of PSLD, the potential for it's implementation could be explored. Furthermore finetuning the diffusion model on
+the training set using methods such as ambient diffusion \cite{2305.19256} could also be explored in order to improve the ability of the diffusion model to generalize to 
+a specific domain, i.e. medical imaging. Furthermore, an understanding into the effects that ambient diffusion has on the size of data needed to finetune diffusion models
+would be interesting to explore. This could be taken a step farther by using approaches described by \cite{2302.07944}, where embeddings could be learned through
+textual inversion and allow better class specific guidance through the inpainting process. 
+
+Finally the use of other inverse problems such as motion blurring, gaussian blurring, and lossy compression could also be explored as ways to induce other types of variation
+within the diffusion model. The use of inpainting is intuitive, however there is no reason to believe that other inverse problems could be used to create unique synthetic
+sample reconstructions compared to other domains. 
+
+Importantly the need to test the effectiveness of these methods for OOD datasets from diffusion models training sets is necessary in order to understand the generalizablity 
+of these methods. While the use of these diffusion models is promising, the need to ensure their ability to generalize to new domains is important in understanding their ability
+to create synthetic data. Further understanding of wether diffusion models are creative or have simple memorized their training set is essential to understanding their abilities,
+as synthetic data generators.
 
 % Acknowledgements should only appear in the accepted version.
 \section*{Acknowledgements}
 
-We would like to thank Litu Rout for spending time to help explain his work on solving
-inverse problems with PSLD.
+We would like to thank Litu Rout for spending time to help explain his work on solving inverse problems with PSLD.
 
 % In the unusual situation where you want a paper to appear in the
 % references without citing it in the main text, use \nocite
