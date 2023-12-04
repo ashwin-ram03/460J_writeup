@@ -5,9 +5,10 @@
 % Recommended, but optional, packages for figures and better typesetting:
 \usepackage{microtype}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{subfigure}
 \usepackage{booktabs} % for professional tables
-
+\usepackage{amssymb}
 % hyperref makes hyperlinks in the resulting PDF.
 % If your build breaks (sometimes temporarily if a hyperlink spans a page)
 % please comment out the following usepackage line and replace
@@ -49,6 +50,11 @@
 
 \begin{icmlauthorlist}
 \icmlauthor{Hayden Prairie}{}
+\icmlauthor{Frank Collebrusco}{}
+\icmlauthor{David Shilliday}{}
+\icmlauthor{Ranit Gupta}{}
+\icmlauthor{Ashwin Ram}{}
+\icmlauthor{Andrew Wang}{}
 \end{icmlauthorlist}
 
 \icmlcorrespondingauthor{Hayden Prairie}{haydenprairie@utexas.edu}
@@ -89,17 +95,17 @@ without scaling the size of its correspondeing dataset has been show to have dim
 The ability to generated large labeled datasets by hand is infeasable and thus the need for unsupervised techniques to create
 augmented or synthetic data become's necissary. Niave approaches to data augmentation such as random cropping, flipping,
 rotation, etc. have been shown to be effective in some cases, but unfeasable in other cases such as medical imaging, where
-niave approaches create unrealistic image domains. More advanced techniques such as generative adversarial networks (GANs)
-have been shown to be effictive in creating realistic synthetic data, however these often require large amounts of data in
+niave approaches create unrealistic image domains. More advanced techniques such as generative adversarial networks
+\cite{1406.2661} have been shown to be effictive in creating realistic synthetic data, however these often require large amounts of data in
 order to fine tune models.
 
 In the last year the surge in the power of large language models such as GPT-4 has also shown their potential to create synthetic
-data. The ability for LLMS to generate realistic text responses to prompts can be viewed as an inverse problem, where the model is attempting
-to find the most likely text given a prompt. A similar approach can be applied to images, where diffusion models can be used to solve
+data \cite{2304.13861}. The ability for LLMS to generate realistic text responses to prompts could be viewed as an inverse problem, in which the LLM is attempting
+to find the most likely text given a prompt. A similar approach can be taken with images, where diffusion models can be used to solve
 inverse problems and in turn generate synthetic data.
 
-In this paper we explore the use of posterior sampling with latent diffusion models (PSLD) to create synthetic data. PSLD
-is a algorithm which allows the use of latent diffusion models to solve linear inverse problems in images. By
+In this paper we explore the use of posterior sampling with latent diffusion models (PSLD) \cite{rout2023solving} to create synthetic data. PSLD
+allows the us to leverage the power of latent diffusion models in order to solve linear inverse problems in images. By
 generating a mask and then using PSLD to reconstruct the image, variations of the original image can be created,
 due mainly the inherent lossy relations of masking pixels. We found these synthetic images to be effective in improving
 the performance of object detections models.
@@ -121,8 +127,8 @@ useful in leading a model to a more generalizable solution \cite{1708.04896}.
 Most niave data augmentation techniques apply simple tranformations to the input image while maintaining the label, such as flipping,
 cropping, rotating, translation, color jittering, and adding noise. Other more complex techniques such as random erasing aim to occlude
 parts of the image allowing the model to learn to focus on other features. These techniques are often effective in improving the performance
-of computer vision models to an extent, however they are often ignorant to certain domains such as medical imaging, where simple
-transoformations are not applicable to potential real world domains.
+of image classification models, however they are often negligble in object detection settings \cite{2204.08610}. Furthermore these trasnformations are often ignorant 
+to certain domains such as medical imaging, where simple transoformations are not applicable to potential real world domains.
 
 For example in brain ct scans, linear transformations of the image would create unrealistic domains that are not representative of test/validation data. 
 The use of linear transformations in order to improve the robustness of a model in these domains often doesn't work as infrence time samples will be centered 
@@ -130,7 +136,10 @@ and cropped such as in ct scans. Thus the need for variation in the training set
 
 \subsection{Advanced Data Augmentation}
 
-In more recents years the use of GANs have been show to be effective in creating realistic synthitic data. 
+In more recents years the use of generative adversial networks (GANS) \cite{1406.2661} have been show to be effective in creating realistic images. Several papers
+have attempted to leverage their power to create synthetic \cite{1911.02888}, \cite{2104.06490}, \cite{2106.05258}. While the techniques have been seen to be effective,
+their ability to generate realistic images pales in comparison to latent diffusion models \cite{2112.10752}. Especially when considering the the power of latent diffusion
+once trained on datasets as LAOIN-5B \cite{2210.08402}, the power of GANs is pale in compraison.
 
 \subsection{Diffusion Models}
 
@@ -173,59 +182,79 @@ a matrix $D$ which is the same shape of our image but contains the distance from
 distribution $N \sim (0, \sigma)$ at each pixel, and then mask any pixel where $d \in D$ is greater than it's given sample from $N$. This results in a mask where pixels
 closer to the bounding box are more likely be masked than pixels further away from the bounding box. 
 
-The image with it's corresponding mask can then be \textit{solved} as an inverse problem using the PSLD algorithm, creating new synthetic samples due to the lossy nature
-of estimating pixel values. Examples of resulting images can be seen in Figure \ref{psld_results}.
-
 \begin{figure}[ht]
     \vskip -0.1in
     \begin{center}
-        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
+        \centerline{\includegraphics[width=\columnwidth]{psld_results.png}}
         \caption{Example of sample passed into stable diffusion with corresponding image and mask.}
         \label{psld_results}
     \end{center}
     \vskip -0.3in
 \end{figure}
 
-As described this approach allows the creation of synthetic samples samples that are not prompt guided or limited to a given vocabulary, don't require model
-finetuning, and are not limited to a given domain. However, the downside to this approach is that realism in the generated images, as a preference to class faithfulness
-comes at the cost of realism.
 
-\section{Experiment}
-
-\begin{table*}[t]
+\begin{table*}[ht!]
 \centering
 \caption{Your caption}
 \label{results}
 \begin{tabular}{lcccccr}
 \toprule
-Augmentation & Train Box & Train Objectiveness & Validation mAP@0.5 & Validation F1  & Test mAP@0.5 & Test F1 \\
+Augmentation & Train Box $\downarrow$ & Train Objective $\downarrow$ & Val mAP@0.5 $\uparrow$ & Val F1  $\uparrow$ & Test mAP@0.5 $\uparrow$ & Test F1 $\uparrow$\\
 \midrule
 Baseline & 0.02726 & 0.004067 & 0.6969 & 0.73 & 0.699 & 0.73\\
+Naive &  0.03984 & 0.005202 & 0.7298 & 0.74 & 0.746 & 0.73\\
 PSLD & \textbf{0.0254} & \textbf{0.003194} & \textbf{.7349} &  \textbf{0.77} & \textbf{0.782} & \textbf{0.82} \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-We ran several experiments on the effectiveness of synthetic data generation using PSLD. We used a bone fragment dataset which consists of 1000 images 
-(750 train, 50 val, 200 test) of bone fractures from all over the body. The reasoning for using this dataset is that it is more likely to be outside the training
-dataset. We used stable diffusion v1.4, which is a latent diffusion model trained on TEMP NEED TO FIX. We created roughly 1000 synthetic samples using PSLD, and then
-compared it with other naive data augmentation techniques where we created a similar number of samples.
+The image with it's corresponding mask can then be \textit{solved} as an inverse problem using the PSLD algorithm, creating new synthetic samples due to the lossy nature
+of estimating pixel values. Examples of resulting images can be seen in Figure \ref{psld_results}.
 
-The results of the experiment can be seen in Table \ref{results} where we compare the performance of a YOLOv7 model. We found that the use of synthetic data
-was incredibly effective in improving the performance of our baseline YOLOv7 model. Compared with other naive data augmentation techniques, we found that the use
-of PSLD was also more effective in improving the performance of our model. The training curves of the model can be seen in Figure \ref{training_curves}, which is
-adjusted for gradient steps instead of epochs.
+As described this approach allows the creation of synthetic samples samples that are not prompt guided or limited to a given vocabulary, don't require model
+finetuning, and are not limited to a given domain. However, the downside to this approach is that realism in the generated images, as a preference to class faithfulness
+comes at the cost of realism.
+
+
+
+\section{Experiment}
+
+We ran several experiments on the effectiveness of synthetic data generation using PSLD. We used a bone fragment dataset which consists of 1000 images 
+(750 train, 50 val, 200 test) of bone fractures from all over the body \cite{bone-fracture-detection-ivsy6_dataset}. The reasoning for using this dataset is 
+it's increased probability of lying outside the training set. We used stable diffusion v1.4 \cite{Rombach_2022_CVPR}, a latent diffusion model trained on 
+LAION-Aesthetics V2 \cite{2210.08402}. We created roughly 1000 synthetic samples using PSLD, and then compared it with other naive data augmentation techniques 
+where we created a similar number of samples.
 
 \begin{figure}[ht]
     \vskip -0.1in
     \begin{center}
-        \centerline{\includegraphics[width=\columnwidth]{Mask.png}}
-        \caption{Example of sample passed into stable diffusion with corresponding image and mask.}
+        \centerline{\includegraphics[width=\columnwidth]{training.png}}
+        \caption{Training curves of YOLOv7 model with respect to each data type.}
         \label{training_curves}
     \end{center}
     \vskip -0.3in
 \end{figure}
 
+
+The results of the experiment can be seen in Table \ref{results} where we compare the performance of a YOLOv7 model \cite{wang2023yolov7}. We found that 
+the use of synthetic data was incredibly effective in improving the performance of our baseline YOLOv7 model. Compared with other naive data augmentation techniques,
+we found that the use of PSLD was also more effective in improving the performance of our model. The training curves of the model can be seen in 
+Figure \ref{training_curves}, which is adjusted for gradient steps instead of epochs.
+
+One thing interesting to note is that samples are often to visually different, however there is often large differences at the pixel level.
+This can be seen in Figure \ref{difference}, where the difference between the two images at a pixel level is shown scaled to an extremely large exponent of 400.
+Nevertheless, this still enables to model to learn more robust features and generalize to the validation and test set.
+
+
+\begin{figure}[ht]
+    \vskip -0.1in
+    \begin{center}
+        \centerline{\includegraphics[width=\columnwidth]{difference.png}}
+        \caption{Difference between original image and its synthetic sample. Pixel difference $x$ is scaled to $x^{400}$.}
+        \label{difference}
+    \end{center}
+    \vskip -0.3in
+\end{figure}
 
 \section{Discussion and Future Work}
 
@@ -250,7 +279,8 @@ as synthetic data generators.
 % Acknowledgements should only appear in the accepted version.
 \section*{Acknowledgements}
 
-We would like to thank Litu Rout for spending time to help explain his work on solving inverse problems with PSLD.
+We would like to thank Litu Rout for spending time to help explain his work on solving inverse problems with PSLD. We would also like the thank the Machine Learning Lab for
+providing credits in order to run our experiments.
 
 % In the unusual situation where you want a paper to appear in the
 % references without citing it in the main text, use \nocite
