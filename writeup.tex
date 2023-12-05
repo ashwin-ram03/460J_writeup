@@ -257,7 +257,7 @@ Nevertheless, this still enables to model to learn more robust features and gene
 \section{Discussion and Future Work}
 
 Treating data augmentation as an inverse problem allows for better variation of synthetic samples compared to naive data augmentation techniques, and can be done
-without the need to retrain on a specific dataset. However as seen, the realism of the generated images is not as comparable to GANs or other diffusion based techniques
+without the need to retrain on a specific dataset. However as seen, the realism of the generated images is not as comparable to GANs or other diffusion based techniques,
 but is inherently more faithful to the original class. Currently, the PSLD algorithm is unable to effectively use the prompt as a guide to reconstruction, however, if the 
 effect of the prompt is considered within the gradient updates of PSLD, the potential for its implementation could be explored. Furthermore finetuning the diffusion model on
 the training set using methods such as ambient diffusion \cite{2305.19256} could also be explored to improve the ability of the diffusion model to generalize to 
@@ -270,15 +270,15 @@ within the diffusion model. The use of inpainting is intuitive, however, there i
 sample reconstructions compared to other domains. 
 
 Importantly the need to test the effectiveness of these methods for OOD datasets from diffusion models training sets is necessary to understand the generalizablity 
-of these methods. While the use of these diffusion models is promising, the need to ensure their ability to generalize to new domains is important in understanding their ability
-to create synthetic data. Further understanding of whether diffusion models are creative or have simply memorized their training set is essential to understanding their abilities,
-as synthetic data generators.
+of these methods. While the use of these diffusion models is promising, the need to ensure their ability to generalize to new domains is important to grasp their potential
+to create synthetic data. Further understanding of whether diffusion models are creative or have simply memorized their training set is also essential to assess the potential 
+for latent diffusion models as synthetic data generators.
 
 % Acknowledgements should only appear in the accepted version.
 \section*{Acknowledgements}
 
 We would like to thank Litu Rout for spending time to help explain his work on solving inverse problems with PSLD. We would also like the thank the Machine Learning Lab for
-providing credits to run our experiments.
+providing credits to run our experiments. We look forward to continuing this project in the future.
 
 % In the unusual situation where you want a paper to appear in the
 % references without citing it in the main text, use \nocite
