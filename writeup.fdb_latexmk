@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex writeup"] 1701712689 "writeup.aux" "writeup.bbl" "writeup" 1701713670
+["bibtex writeup"] 1701799057 "writeup.aux" "writeup.bbl" "writeup" 1701799059
   "./icml2021.bst" 1701116050 27148 c54ce9858f61063a3d812c346dada80f ""
   "main.bib" 1701570175 5437 68b4b0cd49ec2e9032a8152072c05b28 ""
-  "writeup.aux" 1701713670 3806 6cec14a9d206879528989ae744706360 "pdflatex"
+  "writeup.aux" 1701799059 3831 2786da9641e4dcdf256eef4df7cb611e "pdflatex"
   (generated)
   "writeup.bbl"
   "writeup.blg"
-["pdflatex"] 1701713669 "/home/prairie/Documents/460J_writeup/writeup.tex" "writeup.pdf" "writeup" 1701713670
+["pdflatex"] 1701799057 "/home/prairie/Documents/460J_writeup/writeup.tex" "writeup.pdf" "writeup" 1701799059
   "/etc/texmf/web2c/texmf.cnf" 1701108118 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/prairie/Documents/460J_writeup/writeup.tex" 1701713668 19278 516ec53dd62a6b73aab55397fe46e53f ""
+  "/home/prairie/Documents/460J_writeup/writeup.tex" 1701799055 19129 9016225098cb4192b0a3084c26bae736 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -130,10 +130,10 @@
   "icml2021.sty" 1701116073 27175 89682184577d9574a4d934ec6a6f9e36 ""
   "psld_results.png" 1701713233 497119 61acd8b7aaf214a14a75a85092f5347c ""
   "training.png" 1701709801 271395 4b823eaae3d812a2746b0b9ab30fa8f4 ""
-  "writeup.aux" 1701713670 3806 6cec14a9d206879528989ae744706360 "pdflatex"
-  "writeup.bbl" 1701712689 5481 5005fef802adef98bd41e8c2323ad758 "bibtex writeup"
-  "writeup.out" 1701713669 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "writeup.tex" 1701713668 19278 516ec53dd62a6b73aab55397fe46e53f ""
+  "writeup.aux" 1701799059 3831 2786da9641e4dcdf256eef4df7cb611e "pdflatex"
+  "writeup.bbl" 1701799057 5481 5005fef802adef98bd41e8c2323ad758 "bibtex writeup"
+  "writeup.out" 1701799058 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "writeup.tex" 1701799055 19129 9016225098cb4192b0a3084c26bae736 ""
   (generated)
   "writeup.aux"
   "writeup.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.27)  4 DEC 2023 12:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.27)  5 DEC 2023 11:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -422,26 +422,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<Mask.png, id=55, 727.0362pt x 263.7855pt>
+<Mask.png, id=58, 727.0362pt x 263.7855pt>
 File: Mask.png Graphic file (type png)
 <use Mask.png>
-Package pdftex.def Info: Mask.png  used on input line 171.
+Package pdftex.def Info: Mask.png  used on input line 169.
 (pdftex.def)             Requested size: 234.8775pt x 85.21808pt.
-<psld_results.png, id=58, 372.9132pt x 134.904pt>
+<psld_results.png, id=61, 372.9132pt x 134.904pt>
 File: psld_results.png Graphic file (type png)
 <use psld_results.png>
-Package pdftex.def Info: psld_results.png  used on input line 188.
+Package pdftex.def Info: psld_results.png  used on input line 186.
 (pdftex.def)             Requested size: 234.8775pt x 84.96938pt.
  [2 <./Mask.png> <./psld_results.png>]
-<training.png, id=92, 410.0118pt x 312.6882pt>
+<training.png, id=95, 410.0118pt x 312.6882pt>
 File: training.png Graphic file (type png)
 <use training.png>
-Package pdftex.def Info: training.png  used on input line 231.
+Package pdftex.def Info: training.png  used on input line 229.
 (pdftex.def)             Requested size: 234.8775pt x 179.12633pt.
-<difference.png, id=98, 372.9132pt x 134.904pt>
+<difference.png, id=101, 372.9132pt x 134.904pt>
 File: difference.png Graphic file (type png)
 <use difference.png>
-Package pdftex.def Info: difference.png  used on input line 252.
+Package pdftex.def Info: difference.png  used on input line 250.
 (pdftex.def)             Requested size: 234.8775pt x 84.96938pt.
  [3 <./training.png> <./difference.png>] (./writeup.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 21--26
@@ -453,23 +453,25 @@ Underfull \hbox (badness 1205) in paragraph at lines 98--103
 \OT1/ptm/m/n/10 (+20) real-time ob-ject de-tec-tors.  In \OT1/ptm/m/it/10 (+20) Pro-ceed-ings of the
  []
 
-) [4] (./writeup.aux)
+[4]) [5
+
+] (./writeup.aux)
 Package rerunfilecheck Info: File `writeup.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 12646 strings out of 478287
- 198970 string characters out of 5849288
- 536729 words of memory out of 5000000
+ 12636 strings out of 478287
+ 198875 string characters out of 5849288
+ 537418 words of memory out of 5000000
  30400 multiletter control sequences out of 15000+600000
- 495516 words of font info for 191 fonts, out of 8000000 for 9000
+ 495084 words of font info for 184 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,11n,69p,1041b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,69p,1041b,491s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on writeup.pdf (4 pages, 2728413 bytes).
+Output written on writeup.pdf (5 pages, 2728659 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
+ 195 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 500000)
  37909 words of extra memory for PDF output out of 42996 (max. 10000000)
 
